@@ -1,0 +1,48 @@
+[Options]
+ignore_leading_underscores: true
+#pointer_prefix: p
+#pointer_prefix_repeat: true
+arrays_are_pointers: false
+ignore_goto: true
+
+[Rules]
+
+# 函数名称命名规则：返回值类型或prv+大驼峰
+#   static 声明的函数，加上前缀 prv（单词 private 的缩写）。
+#   不带 static 声明的函数，根据返回值的数据类型，加上相应的前缀，如果没有返回值（void 型），加上前缀 v。
+#function_decl: ^(main|((prv|v|(p{0,2}(([ui](8|16|32|64))|ux|c|v|x|e)))([A-Z][a-z0-9]+)+))$
+
+# 变量命名
+#   指针变量加上前缀 p。
+#   无符号数变量加上前缀 u8 或 u16 或 u32 或 u64。
+#   有符号数变量加上前缀 i8 或 i16 或 i32 或 i64。
+#   char 定义的变量只能用于 ASCII 字符，加上前缀 c。
+#   枚举变量加上前缀 e。
+#   stdint.h 文件中未定义的变量类型，加上前缀 x。
+#   stdint.h 文件中未定义的无符号变量类型，加上前缀 ux，比如 UBaseType_t 定义的变量加上前缀 ux。
+#   size_t 定义的变量加上前缀 ux。
+#var_decl: ^((p{0,2}(([ui](8|16|32|64))|ux|c|v|x|e))([A-Z][a-z0-9]+)+)$
+
+# 结构体 TAG
+#struct_decl: ^x(([A-Z]+_)*)[A-Z]+$
+
+# 联合体 TAG
+#union_decl: ^x(([A-Z]+_)*)[A-Z]+$
+
+# 结构体/联合体成员命名
+#   命名规则同变量
+#field_decl: ^((p{0,2}(([ui](8|16|32|64))|ux|c|v|x|e))([A-Z][a-z0-9]+)+)$
+
+# 枚举命名
+#enum_decl: ^e(([A-Z]+_)*)[A-Z]+$
+
+# typedef 命名
+#typedef_decl: ^([A-Z][a-z0-9]+)+_t$
+
+# 函数入参命名
+#   命名规则同变量
+#parm_decl: ^((p{0,2}(([ui](8|16|32|64))|ux|c|v|x|e))([A-Z][a-z0-9]+)+)$
+
+# 宏定义
+# 全部大小，使用下划线区分单词
+macro_definition: ^(([A-Z]+_)*)[A-Z]+$
